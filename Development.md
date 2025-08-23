@@ -468,7 +468,6 @@ All permissions are defined per entity using constants.
 **Base Constant:**
 ```java
 public class BaseConstant {
-    private BaseConstant() {}
 
     public static final String CREATE = "CREATE";
     public static final String UPDATE = "UPDATE";
