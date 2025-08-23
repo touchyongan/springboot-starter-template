@@ -16,6 +16,7 @@ public class ApiResponse<T> {
     }
 
     public ApiResponse(final T data) {
+        this.status = 200;
         this.data = data;
     }
 }

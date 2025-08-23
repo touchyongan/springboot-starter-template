@@ -109,7 +109,7 @@ CREATE INDEX idx_failed_login_failed_date ON public.failed_login USING btree (fa
 CREATE INDEX idx_failed_login_username ON public.failed_login USING btree (username) WHERE (is_still_in_attempt = true);
 
 INSERT INTO app_users(username, email, "password", is_enabled, last_time_password_updated, is_credentials_non_expired, is_account_non_expired, is_account_non_locked, is_deleted, is_not_allowed_update, is_system, created_at, updated_at, deleted_at)
-VALUES('admin@emal.com','admin@emal.com', '$2a$12$AqVFsR/5UU/S0x0G8tW1EecYOzWOolo0uq4SpmIqNNj6nLINzmzBe', true, NOW(), true, true, true, false, true, false, NOW(), NOW(), NULL);
+VALUES('admin@email.com','admin@email.com', '$2a$12$AqVFsR/5UU/S0x0G8tW1EecYOzWOolo0uq4SpmIqNNj6nLINzmzBe', true, NOW(), true, true, true, false, true, false, NOW(), NOW(), NULL);
 
 INSERT INTO user_info(firstname, lastname, app_user_id)
 VALUES ('System', 'Admin', (SELECT id FROM app_users WHERE username = 'admin@emal.com'));

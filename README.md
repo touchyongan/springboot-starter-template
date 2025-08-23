@@ -180,3 +180,12 @@ feature/
 - 🧠 Readability — Easy for new devs to navigate
 - 🧪 Testability — Easier to mock and unit test
 - 🔧 Maintainability — Add/change a feature without breaking others
+
+## Default Username and Password
+
+- Username: admin@email.com
+- Password: Admin@2025
+
+> NOTE:
+> If you want to change password, you can generate password with bcrypt algorithm.
+> You can go to this website: https://bcrypt-generator.com/

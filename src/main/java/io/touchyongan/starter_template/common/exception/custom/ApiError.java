@@ -10,7 +10,8 @@ package io.touchyongan.starter_template.common.exception.custom;
  *             <li>Format: {@code <MODULE>_<CATEGORY>_<DETAIL>}</li>
  *             <li>{@code <MODULE>} — System or domain area (e.g., {@code USER}, {@code ORDER}, {@code PAYMENT}).</li>
  *             <li>{@code <CATEGORY>} — Error type (e.g., {@code VALIDATION}, {@code BUSINESS}, {@code SYSTEM}).</li>
- *             <li>{@code <DETAIL>} — Short, uppercase snake_case description of the specific error (e.g., {@code MISSING_EMAIL}, {@code INSUFFICIENT_FUNDS}).</li>
+ *             <li>{@code <DETAIL>} — Short, uppercase snake_case description of the specific error (e.g.,
+ *             {@code MISSING_EMAIL}, {@code INSUFFICIENT_FUNDS}).</li>
  *             <li>Example: {@code USER_VALIDATION_MISSING_EMAIL}, {@code ORDER_BUSINESS_INVALID_STATUS}.</li>
  *         </ul>
  *     </li>

@@ -2,7 +2,7 @@ package io.touchyongan.starter_template.feature.audit.data;
 
 import io.touchyongan.starter_template.common.exception.custom.BaseApiException;
 import io.touchyongan.starter_template.common.exception.custom.impl.GeneralError;
-import io.touchyongan.starter_template.common.specification.BasedFilterWithPagination;
+import io.touchyongan.starter_template.common.specification.BaseFilterWithPagination;
 import io.touchyongan.starter_template.common.specification.SearchCriteria;
 import io.touchyongan.starter_template.common.specification.SearchOperator;
 import io.touchyongan.starter_template.feature.audit.entity.ActionStatus;
@@ -18,7 +18,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-public class AuditTrailFilter extends BasedFilterWithPagination<AuditTrail> {
+public class AuditTrailFilter extends BaseFilterWithPagination<AuditTrail> {
     public static final Set<String> SUPPORTED_FIELDS = Set.of("id", "action", "entity", "createdAt", "username");
 
     private List<Long> resourceIds;

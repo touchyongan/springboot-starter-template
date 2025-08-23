@@ -12,7 +12,7 @@ import java.util.Objects;
 
 @Getter
 @Setter
-public abstract class BasedFilterWithPagination<T> {
+public abstract class BaseFilterWithPagination<T> {
     protected PaginationRequest paginationRequest;
     protected List<SearchCriteria> searchCriteriaList = new ArrayList<>();
 

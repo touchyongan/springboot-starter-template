@@ -91,7 +91,6 @@ public class AppUser extends CustomPersistable implements UserDetails {
         return authorities;
     }
 
-
     @Override
     public String getPassword() {
         return this.password;
