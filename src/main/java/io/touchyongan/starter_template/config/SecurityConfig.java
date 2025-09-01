@@ -2,8 +2,10 @@ package io.touchyongan.starter_template.config;
 
 import io.touchyongan.starter_template.config.custom.CustomAccessDenyException;
 import io.touchyongan.starter_template.config.custom.CustomAuthenticationEntryPoint;
+import io.touchyongan.starter_template.config.custom.OAuth2ClientAuthenticationSuccessHandler;
 import io.touchyongan.starter_template.config.properties.CrossOriginProperties;
 import io.touchyongan.starter_template.infrastructure.filter.JwtRequestFilter;
+import io.touchyongan.starter_template.infrastructure.filter.OAuth2TempTokenFilter;
 import io.touchyongan.starter_template.infrastructure.permission.CustomMethodSecurityExpressionHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -31,12 +33,14 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class SecurityConfig {
     // Define all endpoints, you need to access without login here
-    public static final Set<String> GET_ANONYMOUS_PATH = Set.of("/error");
+    public static final Set<String> GET_ANONYMOUS_PATH = Set.of("/error", "/auth/oauth-clients");
     public static final Set<String> POST_ANONYMOUS_PATH = Set.of("/auth/token", "/auth/refresh");
 
     private final JwtRequestFilter jwtRequestFilter;
+    private final OAuth2TempTokenFilter oAuth2TempTokenFilter;
     private final CustomAccessDenyException customAccessDenyException;
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+    private final OAuth2ClientAuthenticationSuccessHandler oAuth2ClientAuthenticationSuccessHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(final HttpSecurity http) throws Exception {
@@ -56,6 +60,11 @@ public class SecurityConfig {
                 .exceptionHandling(c -> c.accessDeniedHandler(customAccessDenyException)
                         .authenticationEntryPoint(customAuthenticationEntryPoint))
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(oAuth2TempTokenFilter, JwtRequestFilter.class)
+                .oauth2Client(Customizer.withDefaults())
+                .oauth2Login(oauth2 -> {
+                    oauth2.successHandler(oAuth2ClientAuthenticationSuccessHandler);
+                })
                 .build();
     }
 

@@ -48,6 +48,9 @@ public class AppUser extends CustomPersistable implements UserDetails {
     @Column(name = "is_enabled")
     private boolean enabled;
 
+    @Column(name = "is_deleted")
+    private boolean deleted;
+
     @Column(name = "last_time_password_updated")
     private LocalDateTime lastTimePasswordUpdated;
 
@@ -68,6 +71,9 @@ public class AppUser extends CustomPersistable implements UserDetails {
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "appUser", cascade = CascadeType.ALL)
+    private UserInfo userInfo;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "app_user_roles",
@@ -75,6 +81,15 @@ public class AppUser extends CustomPersistable implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private List<Role> roles;
+
+    public AppUser() {
+        this.deleted = false;
+        this.isNotAllowedUpdate = false;
+        this.enabled = true;
+        this.accountNonExpired = true;
+        this.accountNonLocked = true;
+        this.credentialsNonExpired = true;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

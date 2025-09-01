@@ -373,20 +373,28 @@ public class BaseProjectionRepositoryImpl<ET> implements BaseProjectionRepositor
         final var spec = Optional.ofNullable(specification).orElse(getDefualtSpecification());
 
         // Create a subquery to fetch unique IDs of the root entity
-        final var subQuery = builder.createQuery(Long.class);
-        final var subRoot = subQuery.from(clsEntity);
-        subQuery.select(subRoot.get("id"));
-        final var subPredicate = spec.toPredicate(subRoot, subQuery, builder);
-        subQuery.where(subPredicate);
-        subQuery.distinct(true);
-        // Ensure order for pagination
+        // Fixed error selects distinct sort
+        final var idQuery = builder.createQuery(Tuple.class);
+        final var subRoot = idQuery.from(clsEntity);
+        final var idCols = new ArrayList<Selection<?>>();
+        idCols.add(subRoot.get("id"));
+        for (final var sort : pageable.getSort()) {
+            if (!Objects.equals("id", sort.getProperty())) {
+                idCols.add(subRoot.get(sort.getProperty()));
+            }
+        }
+        idQuery.multiselect(idCols.toArray(new Selection[0]));
+        idQuery.distinct(true);
+        final var subPredicate = spec.toPredicate(subRoot, idQuery, builder);
+        idQuery.where(subPredicate);
+
         if (Objects.equals(pageable.getSort(), Sort.unsorted())) {
-            subQuery.orderBy(builder.asc(subRoot.get("id")));
+            idQuery.orderBy(builder.asc(subRoot.get("id")));
         } else {
-            subQuery.orderBy(getOrderFromPageable(subRoot, builder, pageable));
+            idQuery.orderBy(getOrderFromPageable(subRoot, builder, pageable));
         }
 
-        final var subQueryTyped = entityManager.createQuery(subQuery);
+        final var subQueryTyped = entityManager.createQuery(idQuery);
         subQueryTyped.setFirstResult((int) pageable.getOffset());
         subQueryTyped.setMaxResults(pageable.getPageSize());
 

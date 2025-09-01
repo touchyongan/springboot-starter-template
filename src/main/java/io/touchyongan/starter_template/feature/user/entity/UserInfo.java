@@ -1,11 +1,11 @@
 package io.touchyongan.starter_template.feature.user.entity;
 
 import io.touchyongan.starter_template.common.base.CustomPersistable;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Table(name = "user_info")
 @Entity
@@ -19,5 +19,9 @@ public class UserInfo extends CustomPersistable {
     private String lastname;
 
     @Column(name = "dob")
-    private String dataOfBirth;
+    private LocalDateTime dataOfBirth;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "app_user_id", referencedColumnName = "id")
+    private AppUser appUser;
 }

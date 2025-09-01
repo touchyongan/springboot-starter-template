@@ -60,6 +60,18 @@ public class JwtUtil {
                 .signWith(getSecretKey()).compact();
     }
 
+    public String generateTempToken(final String username,
+                                    final long expiration) {
+        return Jwts
+                .builder()
+                .claim("typ", "Bearer")
+                .claim("tokenType", "OAuth2User")
+                .subject(username)
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(getSecretKey()).compact();
+    }
+
     public String generateMFAToken(final AppUser users) {
         return Jwts
                 .builder()
