@@ -33,7 +33,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class SecurityConfig {
     // Define all endpoints, you need to access without login here
-    public static final Set<String> GET_ANONYMOUS_PATH = Set.of("/error", "/auth/oauth-clients");
+    public static final Set<String> GET_ANONYMOUS_PATH = Set.of("/error", "/auth/oauth2-clients", "/health");
     public static final Set<String> POST_ANONYMOUS_PATH = Set.of("/auth/token", "/auth/refresh");
 
     private final JwtRequestFilter jwtRequestFilter;
