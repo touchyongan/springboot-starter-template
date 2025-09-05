@@ -112,7 +112,7 @@ INSERT INTO app_users(username, email, "password", is_enabled, last_time_passwor
 VALUES('admin@email.com','admin@email.com', '$2a$12$AqVFsR/5UU/S0x0G8tW1EecYOzWOolo0uq4SpmIqNNj6nLINzmzBe', true, NOW(), true, true, true, false, true, false, NOW(), NOW(), NULL);
 
 INSERT INTO user_info(firstname, lastname, app_user_id)
-VALUES ('System', 'Admin', (SELECT id FROM app_users WHERE username = 'admin@emal.com'));
+VALUES ('System', 'Admin', (SELECT id FROM app_users WHERE username = 'admin@email.com'));
 
 INSERT INTO "roles"("name", description, is_disabled, is_not_allowed_update, is_system)
 VALUES('Super User', 'This role for manage the whole system', false, true, false);
